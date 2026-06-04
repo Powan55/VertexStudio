@@ -160,7 +160,7 @@ export const site: SiteConfig = {
     {
       name: "Starter",
       positioning: "Get online and start taking calls — a focused site that does the essentials beautifully.",
-      priceFrom: "Starting at $X,XXX",
+      priceFrom: "Starting at $1,500",
       inclusions: [
         "Up to 3 pages (Home, About, Contact)",
         "Mobile-first, fast-loading design",
@@ -175,7 +175,7 @@ export const site: SiteConfig = {
     {
       name: "Growth",
       positioning: "Built to grow with you — more pages, more reach, more ways to win customers.",
-      priceFrom: "Starting at $X,XXX",
+      priceFrom: "Starting at $3,500",
       popular: true,
       inclusions: [
         "Up to 6 pages incl. services or gallery",
@@ -192,7 +192,7 @@ export const site: SiteConfig = {
     {
       name: "Premium",
       positioning: "The full package — a complete site with online selling or booking, built to do the heavy lifting.",
-      priceFrom: "Starting at $X,XXX",
+      priceFrom: "Starting at $6,500",
       inclusions: [
         "8+ pages, fully tailored to your business",
         "Mobile-first, fast-loading design",
@@ -241,7 +241,7 @@ export const site: SiteConfig = {
     {
       group: "Budget & revisions",
       q: "How does pricing work?",
-      a: "We offer three plans — Starter, Growth, and Premium — each with a starting range. We confirm your exact price before any work begins, so there are no surprises. We're also happy to discuss payment options. (Prices shown on the site are placeholders until finalized.)",
+      a: "We offer three plans — Starter, Growth, and Premium — each with a starting range. We confirm your exact price before any work begins, so there are no surprises. We're also happy to discuss payment options.",
     },
     {
       group: "Budget & revisions",

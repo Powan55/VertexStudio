@@ -6,8 +6,10 @@
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../lib/site";
+import { u } from "../lib/url";
 
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
+const thankYouUrl = u("/thank-you");
 const field =
   "mt-1.5 w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-elevated)] px-3.5 py-2.5 text-[var(--color-text)] placeholder:text-[var(--color-text-subtle)]";
 const label = "block text-sm font-medium text-[var(--color-text)]";
@@ -163,7 +165,7 @@ const steps = [
   </section>
 </BaseLayout>
 
-<script is:inline>
+<script define:vars={{ thankYouUrl, contactEmail: site.email }}>
   (function () {
     var form = document.getElementById("request-form");
     if (!form) return;
@@ -186,14 +188,17 @@ const steps = [
           if (j && j.success) {
             try { if (typeof window.plausible === "function") window.plausible("request_submit"); } catch (_) {}
             try { (window.cfq = window.cfq || []).push(["event", "request_submit"]); } catch (_) {}
-            window.location.assign("/thank-you");
+            window.location.assign(thankYouUrl);
           } else {
+            // Surface the Web3Forms reason (e.g. "Invalid access key") for debugging,
+            // while the user-facing message below stays friendly and generic.
+            console.warn("request submit failed:", j && j.message);
             throw new Error((j && j.message) || "submit failed");
           }
         })
         .catch(function () {
           if (btn) { btn.disabled = false; btn.textContent = original; }
-          fail("Sorry, something went wrong sending your request. Please email us at hello@vertexstudio.com and we'll take it from there.");
+          fail("Sorry, something went wrong sending your request. Please email us at " + contactEmail + " and we'll take it from there.");
         });
     });
   })();
