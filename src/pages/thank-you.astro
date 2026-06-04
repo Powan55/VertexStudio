@@ -1,0 +1,41 @@
+---
+/**
+ * Thank-you — noindex confirmation after a request is submitted.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const meta = {
+  title: "Thank you",
+  description: "Thanks for your request. We've received it and will reply within one business day.",
+  path: "/thank-you",
+  noindex: true,
+};
+---
+
+<BaseLayout meta={meta}>
+  <section class="relative overflow-hidden">
+    <div class="glow pointer-events-none absolute inset-x-0 top-0 h-[420px]"></div>
+    <div class="relative mx-auto max-w-2xl px-6 py-24 text-center sm:py-28">
+      <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-accent-fg)]">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 6 9 17l-5-5" />
+        </svg>
+      </span>
+      <h1 class="mt-6 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">Thanks — we've got your request.</h1>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-[var(--color-text-muted)]">
+        Your request just landed in our inbox. Keep an eye on your email — we'll get back to you within one business day to talk about your business and the right way forward.
+      </p>
+
+      <div class="mt-10 grid gap-4 text-left sm:grid-cols-2">
+        <a href="/work" class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition hover:border-[var(--color-text-subtle)]">
+          <p class="font-semibold text-[var(--color-text)]">See how we think about design →</p>
+          <p class="mt-1 text-sm text-[var(--color-text-muted)]">Browse our concept work.</p>
+        </a>
+        <a href="/process" class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition hover:border-[var(--color-text-subtle)]">
+          <p class="font-semibold text-[var(--color-text)]">Curious how it comes together? →</p>
+          <p class="mt-1 text-sm text-[var(--color-text-muted)]">Read our four-step process.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

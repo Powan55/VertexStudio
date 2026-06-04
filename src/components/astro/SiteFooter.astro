@@ -1,0 +1,58 @@
+---
+/**
+ * Footer for the studio site — brand, navigation, email, socials, legal.
+ * No NAP/hours/map (we're an online studio, not a phone-first local business).
+ */
+import { site } from "../../lib/site";
+const year = new Date().getFullYear();
+const socials = Object.entries(site.social).filter(([, url]) => Boolean(url));
+---
+
+<footer class="mt-24 border-t border-[var(--color-border)] bg-[var(--color-surface)]">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.5fr_1fr_1fr]">
+    <div>
+      <a href="/" class="inline-flex items-center gap-2 text-[var(--color-text)]" aria-label="VertexStudio home">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 19 L12 5 L20 19" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M9 19 L12 13 L15 19" stroke="var(--color-text)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" />
+        </svg>
+        <span class="text-lg font-bold tracking-tight" style="font-family:var(--font-display)">VertexStudio</span>
+      </a>
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-[var(--color-text-muted)]">
+        Fast, modern, conversion-focused websites for small local businesses. Built in days — and you own everything.
+      </p>
+      <a href={`mailto:${site.email}`} data-analytics="email_click" class="mt-4 inline-block text-sm text-[var(--color-text-muted)] underline underline-offset-4 hover:text-[var(--color-text)]">
+        {site.email}
+      </a>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold text-[var(--color-text)]">Explore</p>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {site.nav.map((l) => (
+          <li><a href={l.href} class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">{l.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold text-[var(--color-text)]">Get started</p>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a href="/request" class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">Request a website</a></li>
+        <li><a href="/pricing" class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">Pricing</a></li>
+        <li><a href="/faq" class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">FAQ</a></li>
+      </ul>
+      {socials.length > 0 && (
+        <ul class="mt-5 flex gap-4 text-sm">
+          {socials.map(([name, url]) => (
+            <li><a class="capitalize text-[var(--color-text-muted)] underline hover:text-[var(--color-text)]" href={url} rel="noopener" target="_blank">{name}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+
+  <div class="border-t border-[var(--color-border)] px-4 py-5 text-center text-xs text-[var(--color-text-subtle)]">
+    © {year} {site.name}. All rights reserved. · Concept work shown is not from real clients.
+  </div>
+</footer>

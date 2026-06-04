@@ -1,0 +1,89 @@
+---
+/**
+ * BaseLayout — <head> + chrome for every page (dark theme).
+ * SEO/meta (seo.ts) + Organization JSON-LD (organization.ts) site-wide,
+ * skip-link, sticky header, footer, analytics, and the scroll-reveal observer.
+ */
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
+import "../styles/global.css";
+import { site } from "../lib/site";
+import { buildMeta, type PageMeta } from "../lib/seo";
+import { organizationJsonLd } from "../lib/organization";
+import SiteHeader from "../components/astro/SiteHeader.astro";
+import SiteFooter from "../components/astro/SiteFooter.astro";
+import AnalyticsEvents from "../components/astro/AnalyticsEvents.astro";
+
+interface Props {
+  meta: PageMeta;
+}
+const { meta } = Astro.props;
+const m = buildMeta(meta);
+const jsonLd = organizationJsonLd();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0A0A0B" />
+
+    <title>{m.title}</title>
+    <meta name="description" content={m.description} />
+    <link rel="canonical" href={m.canonical} />
+    {m.noindex && <meta name="robots" content="noindex" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={m.ogTitle} />
+    <meta property="og:description" content={m.ogDescription} />
+    <meta property="og:url" content={m.ogUrl} />
+    <meta property="og:image" content={m.ogImage} />
+    <meta property="og:site_name" content={site.name} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={m.twitterCard} />
+    <meta name="twitter:title" content={m.ogTitle} />
+    <meta name="twitter:description" content={m.ogDescription} />
+    <meta name="twitter:image" content={m.ogImage} />
+
+    <!-- Organization / ProfessionalService JSON-LD -->
+    <script type="application/ld+json" set:html={jsonLd} />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+    <AnalyticsEvents />
+
+    <!-- Scroll-reveal: add .is-visible once per .reveal element. Respects reduced-motion. -->
+    <script is:inline>
+      (function () {
+        var els = document.querySelectorAll(".reveal");
+        if (!els.length) return;
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce || !("IntersectionObserver" in window)) {
+          els.forEach(function (el) { el.classList.add("is-visible"); });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
+        );
+        els.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
+  </body>
+</html>

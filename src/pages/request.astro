@@ -1,0 +1,200 @@
+---
+/**
+ * Request a website — the lead form (vanilla, posts to Web3Forms, no framework).
+ * On success → /thank-you and fires the `request_submit` analytics event.
+ * The Web3Forms key comes from PUBLIC_WEB3FORMS_KEY (.env, operator-owned).
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../lib/site";
+
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
+const field =
+  "mt-1.5 w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-elevated)] px-3.5 py-2.5 text-[var(--color-text)] placeholder:text-[var(--color-text-subtle)]";
+const label = "block text-sm font-medium text-[var(--color-text)]";
+
+const meta = {
+  title: "Request a Website",
+  description:
+    "Tell us about your business and your goals. We reply within one business day — no pressure, no obligation. Start your website with VertexStudio.",
+  path: "/request",
+};
+
+const steps = [
+  "We read your request and get back to you within one business day.",
+  "We have a short, friendly chat about your business and goals — no hard sell.",
+  "We map out a plan with a clear scope and confirmed price, before any work begins.",
+];
+---
+
+<BaseLayout meta={meta}>
+  <section class="relative overflow-hidden bg-[var(--color-bg)]">
+    <div class="glow pointer-events-none absolute inset-x-0 top-0 h-[360px]"></div>
+    <div class="relative mx-auto max-w-6xl px-6 pt-16 pb-20 sm:pt-20">
+      <div class="grid gap-10 md:grid-cols-[2fr_3fr] md:gap-14">
+        <!-- Reassurance -->
+        <div>
+          <h1 class="text-4xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl">Request a website.</h1>
+          <p class="mt-5 text-lg text-[var(--color-text-muted)]">
+            Tell us a little about your business and what you're hoping for. No obligation, no pressure — just the first step toward a website that works.
+          </p>
+
+          <div class="mt-8 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+            <p class="font-semibold text-[var(--color-text)]">What happens next</p>
+            <ol class="mt-4 space-y-4">
+              {steps.map((s, i) => (
+                <li class="flex gap-3">
+                  <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-xs font-bold text-[var(--color-accent-fg)]">{i + 1}</span>
+                  <span class="text-sm leading-relaxed text-[var(--color-text-muted)]">{s}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <p class="mt-6 text-sm text-[var(--color-text-subtle)]">
+            Prefer email? Reach us at
+            <a href={`mailto:${site.email}`} data-analytics="email_click" class="text-[var(--color-text-muted)] underline underline-offset-4 hover:text-[var(--color-text)]">{site.email}</a>.
+          </p>
+        </div>
+
+        <!-- Form -->
+        <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8">
+          <form id="request-form" class="space-y-5" novalidate>
+            <input type="hidden" name="access_key" value={accessKey} />
+            <input type="hidden" name="subject" value="New website request — VertexStudio" />
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class={label} for="name">Full name</label>
+                <input class={field} id="name" name="name" type="text" required autocomplete="name" />
+              </div>
+              <div>
+                <label class={label} for="email">Email</label>
+                <input class={field} id="email" name="email" type="email" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div>
+              <label class={label} for="business">Business name</label>
+              <input class={field} id="business" name="business" type="text" required autocomplete="organization" />
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class={label} for="project_type">Project type</label>
+                <select class={field} id="project_type" name="project_type" required>
+                  <option value="" disabled selected>Choose one…</option>
+                  <option>New website</option>
+                  <option>Website revamp</option>
+                  <option>E-commerce</option>
+                </select>
+              </div>
+              <div>
+                <label class={label} for="industry">Industry</label>
+                <input class={field} id="industry" name="industry" type="text" placeholder="e.g. café, salon, contractor" />
+              </div>
+            </div>
+
+            <div>
+              <label class={label} for="goal">What's the main goal?</label>
+              <input class={field} id="goal" name="goal" type="text" placeholder="e.g. more calls, bookings, or quotes" />
+            </div>
+
+            <div>
+              <label class={label} for="current_url">Current website URL <span class="text-[var(--color-text-subtle)]">(if you have one)</span></label>
+              <input class={field} id="current_url" name="current_url" type="url" placeholder="https://" inputmode="url" />
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class={label} for="timeline">Timeline</label>
+                <select class={field} id="timeline" name="timeline">
+                  <option value="" disabled selected>Choose one…</option>
+                  <option>As soon as possible</option>
+                  <option>Within a month</option>
+                  <option>1–3 months</option>
+                  <option>Just exploring</option>
+                </select>
+              </div>
+              <div>
+                <label class={label} for="budget">Budget range</label>
+                <select class={field} id="budget" name="budget">
+                  <option value="" disabled selected>Choose one…</option>
+                  <option>Not sure yet</option>
+                  <option>$1,000–$3,000</option>
+                  <option>$3,000–$6,000</option>
+                  <option>$6,000+</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class={label} for="referral">How did you hear about us? <span class="text-[var(--color-text-subtle)]">(optional)</span></label>
+              <select class={field} id="referral" name="referral">
+                <option value="" disabled selected>Choose one…</option>
+                <option>Google search</option>
+                <option>Referral</option>
+                <option>Social media</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <label class="flex items-start gap-3 text-sm text-[var(--color-text-muted)]">
+              <input type="checkbox" name="consent" required class="mt-1 h-4 w-4 shrink-0 rounded border-[var(--color-border)]" />
+              <span>I agree to be contacted by VertexStudio about my request.</span>
+            </label>
+
+            <button
+              type="submit"
+              class="inline-flex min-h-[48px] w-full items-center justify-center rounded-xl bg-[var(--color-accent)] px-6 py-3 text-base font-semibold text-[var(--color-accent-fg)] transition hover:bg-[var(--color-accent-hover)] disabled:opacity-60"
+            >
+              Request a website
+            </button>
+
+            <p id="form-status" role="alert" hidden class="text-sm text-[var(--color-danger)]"></p>
+
+            <p class="text-xs leading-relaxed text-[var(--color-text-subtle)]">
+              We only use your details to respond to your request and talk about your project. We won't sell your information or add you to spammy lists. Ever.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById("request-form");
+    if (!form) return;
+    var status = document.getElementById("form-status");
+    function fail(msg) {
+      if (status) { status.textContent = msg; status.hidden = false; }
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (status) status.hidden = true;
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var data = new FormData(form);
+      if (data.get("botcheck")) return; // honeypot tripped
+      var btn = form.querySelector("button[type=submit]");
+      var original = btn ? btn.textContent : "";
+      if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+      fetch("https://api.web3forms.com/submit", { method: "POST", body: data })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (j && j.success) {
+            try { if (typeof window.plausible === "function") window.plausible("request_submit"); } catch (_) {}
+            try { (window.cfq = window.cfq || []).push(["event", "request_submit"]); } catch (_) {}
+            window.location.assign("/thank-you");
+          } else {
+            throw new Error((j && j.message) || "submit failed");
+          }
+        })
+        .catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = original; }
+          fail("Sorry, something went wrong sending your request. Please email us at hello@vertexstudio.com and we'll take it from there.");
+        });
+    });
+  })();
+</script>

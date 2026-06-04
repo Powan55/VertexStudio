@@ -1,0 +1,36 @@
+---
+/**
+ * Sticky site header — wordmark + desktop nav + Request CTA, with a zero-JS
+ * mobile menu. Replaces the scaffold's click-to-call StickyCallBar.
+ */
+import { site } from "../../lib/site";
+import MobileNav from "./MobileNav.astro";
+const links = site.nav;
+---
+
+<header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6" aria-label="Primary">
+    <a href="/" class="inline-flex items-center gap-2 text-[var(--color-text)]" aria-label="VertexStudio home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 19 L12 5 L20 19" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M9 19 L12 13 L15 19" stroke="var(--color-text)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" />
+      </svg>
+      <span class="text-lg font-bold tracking-tight" style="font-family:var(--font-display)">VertexStudio</span>
+    </a>
+
+    <div class="hidden items-center gap-7 md:flex">
+      {links.map((l) => (
+        <a href={l.href} class="text-sm font-medium text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">{l.label}</a>
+      ))}
+      <a
+        href={site.cta.href}
+        data-analytics="request_click"
+        class="inline-flex min-h-[40px] items-center rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-accent-fg)] transition hover:bg-[var(--color-accent-hover)]"
+      >
+        {site.cta.label}
+      </a>
+    </div>
+
+    <MobileNav />
+  </nav>
+</header>

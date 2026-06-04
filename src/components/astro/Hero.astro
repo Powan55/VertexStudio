@@ -1,0 +1,45 @@
+---
+/**
+ * Home hero — dark, accent glow, LCP = the headline TEXT (no heavy image,
+ * keeps LCP fast). Above-the-fold conversion block.
+ */
+---
+
+<section class="relative overflow-hidden bg-[var(--color-bg)]">
+  <div class="glow pointer-events-none absolute inset-x-0 top-0 h-[640px]"></div>
+  <div class="relative mx-auto max-w-5xl px-6 pt-20 pb-16 text-center sm:pt-28 sm:pb-24">
+    <a href="/work" class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-1.5 text-xs font-medium text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">
+      <span class="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]"></span>
+      New studio · See our concept work →
+    </a>
+
+    <h1 class="mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight text-[var(--color-text)] sm:text-6xl">
+      Turn local searches into <span class="text-[var(--color-accent-text)]">customers</span>.
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-[var(--color-text-muted)] sm:text-xl">
+      VertexStudio designs fast, modern websites that get small local businesses more calls,
+      bookings, and quotes — built in days, not months, and you own every piece of it.
+    </p>
+
+    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a
+        href="/request"
+        data-analytics="request_click"
+        class="inline-flex min-h-[48px] w-full items-center justify-center rounded-xl bg-[var(--color-accent)] px-8 py-3 text-base font-semibold text-[var(--color-accent-fg)] shadow-lg transition hover:bg-[var(--color-accent-hover)] sm:w-auto"
+      >
+        Request a website
+      </a>
+      <a
+        href="/work"
+        class="inline-flex min-h-[48px] w-full items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-8 py-3 text-base font-semibold text-[var(--color-text)] transition hover:border-[var(--color-text-subtle)] sm:w-auto"
+      >
+        See our work
+      </a>
+    </div>
+
+    <p class="mt-6 text-sm text-[var(--color-text-subtle)]">
+      Concept work shown · You own everything · Built in days · Redesign guarantee
+    </p>
+  </div>
+</section>

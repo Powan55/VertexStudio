@@ -1,0 +1,31 @@
+---
+/**
+ * Tiny, dependency-free conversion-event tracker. Listens for clicks on any
+ * element with a [data-analytics] attribute and forwards the event name to the
+ * analytics provider. Keeps the performance budget intact (no library).
+ *
+ * Default provider: Cloudflare Web Analytics (cookieless). It auto-tracks
+ * pageviews/CWV; for custom click events we push to a generic queue that the
+ * provider snippet (added in BaseLayout <head> at Ship) can read, or send a
+ * lightweight beacon. Swap the body for Plausible/Umami if chosen.
+ *
+ * Events emitted: call_click, form_submit, booking_click, directions_click,
+ * email_click (see 07-TECH-STANDARDS.md §10).
+ *
+ * Include this once (e.g. in BaseLayout before </body>) when analytics is wired.
+ */
+---
+<script is:inline>
+  document.addEventListener("click", function (e) {
+    var el = e.target instanceof Element ? e.target.closest("[data-analytics]") : null;
+    if (!el) return;
+    var name = el.getAttribute("data-analytics");
+    if (!name) return;
+    // Cloudflare Web Analytics custom event (if cf beacon present), else no-op.
+    if (window.__cfBeacon || window.cloudflare) {
+      try { (window.cfq = window.cfq || []).push(["event", name]); } catch (_) {}
+    }
+    // Plausible fallback if used: window.plausible && window.plausible(name)
+    if (typeof window.plausible === "function") { try { window.plausible(name); } catch (_) {} }
+  });
+</script>

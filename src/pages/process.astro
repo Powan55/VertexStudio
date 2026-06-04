@@ -1,0 +1,56 @@
+---
+/**
+ * Process — 4 steps (what we do + what we need), guarantee, you-own-everything.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FinalCta from "../components/astro/FinalCta.astro";
+import GuaranteeBand from "../components/astro/GuaranteeBand.astro";
+import { site } from "../lib/site";
+
+const meta = {
+  title: "Process",
+  description:
+    "A clear four-step process to launch your website in days — plus our redesign guarantee and a promise: you own everything we build.",
+  path: "/process",
+};
+---
+
+<BaseLayout meta={meta}>
+  <section class="relative overflow-hidden bg-[var(--color-bg)]">
+    <div class="glow pointer-events-none absolute inset-x-0 top-0 h-[420px]"></div>
+    <div class="relative mx-auto max-w-3xl px-6 pt-20 pb-12 text-center sm:pt-24">
+      <h1 class="text-4xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl">A clear path from idea to launch.</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-[var(--color-text-muted)]">
+        No mystery, no endless back-and-forth. We move fast, keep you in the loop, and end with you owning everything. Here's exactly what happens — and what we'll need from you.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 pb-20">
+    <ol class="space-y-6">
+      {site.process.map((p) => (
+        <li class="reveal grid gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:grid-cols-[auto_1fr] sm:gap-8 sm:p-8">
+          <div class="text-3xl font-bold text-[var(--color-accent-text)]" style="font-family:var(--font-display)">0{p.n}</div>
+          <div>
+            <h2 class="text-xl font-bold text-[var(--color-text)]">{p.title}</h2>
+            <p class="mt-2 text-[var(--color-text-muted)]">{p.what}</p>
+            <p class="mt-4 rounded-lg bg-[var(--color-elevated)] px-4 py-3 text-sm text-[var(--color-text-muted)]">
+              <span class="font-semibold text-[var(--color-text)]">What we need from you:</span> {p.need}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <GuaranteeBand />
+
+  <section class="mx-auto max-w-3xl px-6 py-20 text-center sm:py-24">
+    <h2 class="reveal text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">You own everything</h2>
+    <p class="reveal mx-auto mt-4 max-w-2xl text-lg text-[var(--color-text-muted)]">
+      When we hand off, it's truly yours — the code, the content, and the domain. No locked-in platform, no holding your website hostage, no surprise fees to get your own files. We build it to set you free, not to trap you.
+    </p>
+  </section>
+
+  <FinalCta headline="Ready to start with step one?" />
+</BaseLayout>

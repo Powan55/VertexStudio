@@ -1,0 +1,92 @@
+---
+/**
+ * Mobile navigation — pure Astro + a tiny inline script (no framework, zero
+ * bundle). Accessible: aria-expanded/controls, Escape to close, click-outside,
+ * focus moved into the panel on open and restored to the trigger on close,
+ * body scroll locked while open.
+ */
+import { site } from "../../lib/site";
+const links = site.nav;
+---
+
+<div class="md:hidden">
+  <button
+    id="mnav-open"
+    type="button"
+    aria-expanded="false"
+    aria-controls="mnav-panel"
+    aria-label="Open menu"
+    class="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-text)]"
+  >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <path d="M3 6h18M3 12h18M3 18h18" />
+    </svg>
+  </button>
+
+  <div
+    id="mnav-panel"
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-label="Site menu"
+    class="fixed inset-0 z-[60] bg-[var(--color-bg)]/97 backdrop-blur-md"
+  >
+    <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+      <span class="text-lg font-bold tracking-tight text-[var(--color-text)]" style="font-family:var(--font-display)">VertexStudio</span>
+      <button
+        id="mnav-close"
+        type="button"
+        aria-label="Close menu"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-text)]"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mx-auto flex max-w-6xl flex-col gap-1 px-6 pt-10" aria-label="Mobile">
+      {links.map((l) => (
+        <a href={l.href} class="mnav-link rounded-lg px-2 py-3 text-2xl font-semibold text-[var(--color-text)]" style="font-family:var(--font-display)">{l.label}</a>
+      ))}
+      <a
+        href={site.cta.href}
+        data-analytics="request_click"
+        class="mnav-link mt-5 inline-flex min-h-[48px] items-center justify-center rounded-xl bg-[var(--color-accent)] px-6 py-3 text-base font-semibold text-[var(--color-accent-fg)]"
+      >
+        {site.cta.label}
+      </a>
+    </nav>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var openBtn = document.getElementById("mnav-open");
+    var closeBtn = document.getElementById("mnav-close");
+    var panel = document.getElementById("mnav-panel");
+    if (!openBtn || !panel) return;
+    function onKey(e) { if (e.key === "Escape") close(); }
+    function open() {
+      panel.hidden = false;
+      openBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+      var first = panel.querySelector("a, button");
+      if (first) first.focus();
+      document.addEventListener("keydown", onKey);
+    }
+    function close() {
+      panel.hidden = true;
+      openBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+      openBtn.focus();
+    }
+    openBtn.addEventListener("click", open);
+    if (closeBtn) closeBtn.addEventListener("click", close);
+    panel.addEventListener("click", function (e) { if (e.target === panel) close(); });
+    Array.prototype.forEach.call(panel.querySelectorAll(".mnav-link"), function (a) {
+      a.addEventListener("click", close);
+    });
+  })();
+</script>

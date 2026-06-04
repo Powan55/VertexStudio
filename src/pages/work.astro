@@ -1,0 +1,110 @@
+---
+/**
+ * Work — 2 concept demos shown as stylized browser mockups, with a prominent
+ * "concept work, not a real client" disclaimer. The preview panels are
+ * decorative illustrations (aria-hidden); the real detail is in the write-up.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FinalCta from "../components/astro/FinalCta.astro";
+import { site } from "../lib/site";
+
+const meta = {
+  title: "Our Work — Concept Websites",
+  description:
+    "See how VertexStudio approaches design through two concept websites — a coffee roaster and a remodeler. Honest, labeled concept work.",
+  path: "/work",
+};
+
+const mock: Record<string, { url: string; links: string[]; headline: string; cta: string; note: string }> = {
+  "harbor-and-vine": {
+    url: "harborandvine.coffee",
+    links: ["Menu", "Visit", "Order"],
+    headline: "Freshly roasted, right around the corner.",
+    cta: "Order ahead",
+    note: "Open today · 7am–6pm",
+  },
+  "ironwood-builders": {
+    url: "ironwoodbuilders.com",
+    links: ["Projects", "Services", "Quote"],
+    headline: "Built to last. Designed to impress.",
+    cta: "Request a quote",
+    note: "Licensed & insured · 20+ years",
+  },
+};
+---
+
+<BaseLayout meta={meta}>
+  <section class="relative overflow-hidden bg-[var(--color-bg)]">
+    <div class="glow pointer-events-none absolute inset-x-0 top-0 h-[420px]"></div>
+    <div class="relative mx-auto max-w-3xl px-6 pt-20 pb-10 text-center sm:pt-24">
+      <h1 class="text-4xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl">See how we think about design.</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-[var(--color-text-muted)]">
+        A great website isn't about looking pretty — it's about turning the right visitor into a customer. Here are two concept projects that show exactly how we approach that, from the first problem to the finished page.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6">
+    <div class="reveal rounded-2xl border border-[var(--color-accent)] bg-[var(--color-surface)] p-6 text-center">
+      <p class="text-sm font-semibold text-[var(--color-accent-text)]">Concept work — not a real client.</p>
+      <p class="mx-auto mt-2 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)]">
+        VertexStudio is a new studio, and we believe in being upfront. The projects below are concept demonstrations — the businesses, names, and details are invented by us to showcase our design and conversion thinking. They are not real clients, and we make no claims about real results. When we earn real client work, you'll see it here — clearly and honestly.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl space-y-12 px-6 py-14">
+    {site.conceptDemos.map((d) => (
+      <article class="reveal overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)]">
+        <div class="grid gap-0 lg:grid-cols-2">
+          <!-- Browser mockup (decorative) -->
+          <div class="border-b border-[var(--color-border)] lg:border-b-0 lg:border-r" aria-hidden="true">
+            <div class="flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-elevated)] px-4 py-3">
+              <span class="h-3 w-3 rounded-full" style="background:#ff5f57"></span>
+              <span class="h-3 w-3 rounded-full" style="background:#febc2e"></span>
+              <span class="h-3 w-3 rounded-full" style="background:#28c840"></span>
+              <span class="ml-3 truncate rounded-md bg-[var(--color-bg)] px-3 py-1 text-xs text-[var(--color-text-subtle)]">{mock[d.slug].url}</span>
+            </div>
+            <div class="flex min-h-[300px] flex-col p-7" style={`background: radial-gradient(120% 90% at 100% 0%, ${d.accent}33, var(--color-elevated));`}>
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-[var(--color-text)]" style="font-family:var(--font-display)">{d.business}</span>
+                <div class="flex gap-4 text-xs text-[var(--color-text-muted)]">
+                  {mock[d.slug].links.map((l) => (<span>{l}</span>))}
+                </div>
+              </div>
+              <div class="flex flex-1 flex-col justify-center py-8">
+                <h3 class="max-w-md text-2xl font-bold leading-tight text-[var(--color-text)] sm:text-3xl" style="font-family:var(--font-display)">{mock[d.slug].headline}</h3>
+                <div class="mt-5">
+                  <span class="inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold" style={`background:${d.accent};color:#0A0A0B`}>{mock[d.slug].cta}</span>
+                </div>
+              </div>
+              <p class="text-xs font-medium" style={`color:${d.accent}`}>{mock[d.slug].note}</p>
+            </div>
+          </div>
+
+          <!-- Write-up -->
+          <div class="p-7 sm:p-9">
+            <span class="inline-block rounded-full bg-[var(--color-elevated)] px-3 py-1 text-xs font-medium text-[var(--color-text-muted)]">Concept · {d.industry}</span>
+            <h2 class="mt-4 text-2xl font-bold text-[var(--color-text)]">{d.business}</h2>
+            <div class="mt-5 space-y-4 text-sm leading-relaxed">
+              <div>
+                <p class="font-semibold text-[var(--color-text)]">The problem</p>
+                <p class="mt-1 text-[var(--color-text-muted)]">{d.problem}</p>
+              </div>
+              <div>
+                <p class="font-semibold text-[var(--color-text)]">Our approach</p>
+                <p class="mt-1 text-[var(--color-text-muted)]">{d.approach}</p>
+              </div>
+              <div>
+                <p class="font-semibold text-[var(--color-text)]">Outcome <span class="font-normal text-[var(--color-text-subtle)]">(concept)</span></p>
+                <p class="mt-1 text-[var(--color-text-muted)]">{d.outcome}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <FinalCta headline="Want this kind of thinking for your business?" />
+</BaseLayout>

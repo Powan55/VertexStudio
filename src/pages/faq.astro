@@ -1,0 +1,52 @@
+---
+/**
+ * FAQ — grouped accordions using native <details> (zero JS, fully accessible,
+ * content stays in the DOM for SEO).
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FinalCta from "../components/astro/FinalCta.astro";
+import { site } from "../lib/site";
+
+const meta = {
+  title: "FAQ",
+  description:
+    "Answers on ownership, pricing, timelines, our redesign guarantee, and protecting your SEO during a revamp. Everything you need to know.",
+  path: "/faq",
+};
+
+const groups: string[] = [];
+for (const f of site.faqs) if (!groups.includes(f.group)) groups.push(f.group);
+---
+
+<BaseLayout meta={meta}>
+  <section class="relative overflow-hidden bg-[var(--color-bg)]">
+    <div class="glow pointer-events-none absolute inset-x-0 top-0 h-[380px]"></div>
+    <div class="relative mx-auto max-w-3xl px-6 pt-20 pb-10 text-center sm:pt-24">
+      <h1 class="text-4xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl">Questions, answered honestly.</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-[var(--color-text-muted)]">
+        Everything you might be wondering before you reach out. Don't see your question? Just ask when you request a website — we're happy to help.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-12">
+    {groups.map((g) => (
+      <div class="reveal mb-10">
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--color-accent-text)]">{g}</h2>
+        <div class="mt-4 space-y-3">
+          {site.faqs.filter((f) => f.group === g).map((f) => (
+            <details class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-[var(--color-text)] [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <svg class="h-5 w-5 shrink-0 text-[var(--color-text-muted)] transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <FinalCta headline="Still have a question?" body="Ask us anything when you request a website — we'll get back to you within one business day." />
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+/**
+ * Reusable closing call-to-action band (accent glow). Used on every page.
+ */
+interface Props {
+  headline?: string;
+  body?: string;
+  label?: string;
+  href?: string;
+}
+const {
+  headline = "Ready for a website that actually brings in work?",
+  body = "Tell us about your business and we'll show you what's possible.",
+  label = "Request a website",
+  href = "/request",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-surface)]">
+  <div class="glow pointer-events-none absolute inset-0"></div>
+  <div class="reveal relative mx-auto max-w-3xl px-6 py-20 text-center sm:py-24">
+    <h2 class="text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">{headline}</h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-[var(--color-text-muted)]">{body}</p>
+    <a
+      href={href}
+      data-analytics="request_click"
+      class="mt-8 inline-flex min-h-[48px] items-center justify-center rounded-xl bg-[var(--color-accent)] px-8 py-3 text-base font-semibold text-[var(--color-accent-fg)] shadow-lg transition hover:bg-[var(--color-accent-hover)]"
+    >
+      {label}
+    </a>
+    <p class="mt-4 text-sm text-[var(--color-text-subtle)]">No pressure, no obligation — we reply within one business day.</p>
+  </div>
+</section>

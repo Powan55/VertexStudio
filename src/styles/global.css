@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   VertexStudio design tokens — "bold dark + vivid accent" (Tailwind v4 @theme).
+   Contrast-checked for WCAG 2.1 AA. Full rationale: design/design-brief.md.
+   Fonts (Inter / Space Grotesk Variable) are imported in BaseLayout.astro.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Dark base ramp */
+  --color-bg:     #0A0A0B;   /* page background */
+  --color-surface:  #111114;   /* cards / sections */
+  --color-elevated: #17171C;   /* raised cards, inputs, popovers */
+  --color-border:   #2A2A31;   /* hairlines, input borders */
+
+  /* Text (on --color-bg) */
+  --color-text:        #F4F4F5; /* ~17:1 AAA */
+  --color-text-muted:  #A1A1AA; /* ~7:1  AA  */
+  --color-text-subtle: #8A8A93; /* ~5.3:1 AA (restrict to >=16px) */
+
+  /* Single vivid accent — electric violet. white-on-accent ~4.9:1 (AA). */
+  --color-accent:       #6E56F8;
+  --color-accent-hover: #8473FA;
+  --color-accent-fg:    #FFFFFF;
+  --color-accent-text:  #9277F9;
+
+  /* State */
+  --color-success: #34D399;
+  --color-danger:  #F87171;
+
+  /* Back-compat aliases so reused scaffold components keep compiling on dark. */
+  --color-brand:     var(--color-accent);
+  --color-brand-fg:  var(--color-accent-fg);
+  --color-ink:       var(--color-text);
+  --color-muted:     var(--color-text-muted);
+  --color-surface-2: var(--color-elevated);
+
+  /* Type */
+  --font-display: "Space Grotesk Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans:    "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Motion */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Base ------------------------------------------------------------------- */
+html { scroll-behavior: smooth; }
+body {
+  color: var(--color-text);
+  background: var(--color-bg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+::selection { background: var(--color-accent); color: var(--color-accent-fg); }
+
+/* Reusable accent gradient glow (used behind hero / CTA bands). Pure CSS. */
+.glow {
+  background:
+    radial-gradient(60% 60% at 50% 0%, rgba(110, 86, 248, 0.22) 0%, rgba(110, 86, 248, 0) 70%);
+}
+
+/* Visible focus on every interactive element (a11y). Never remove without replacement. */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip-link: hidden until focused */
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--color-accent); color: var(--color-accent-fg);
+  padding: 0.5rem 1rem; z-index: 100; border-radius: 0 0 6px 0;
+}
+.skip-link:focus { left: 0; top: 0; }
+
+/* Scroll-reveal: add class="reveal"; an IntersectionObserver in BaseLayout adds
+   .is-visible once. Animates only opacity/transform (compositor-friendly). */
+.reveal {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .5s var(--ease-out-quart), transform .5s var(--ease-out-quart);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Respect reduced-motion globally (a11y / WCAG). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}

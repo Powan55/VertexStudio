@@ -1,0 +1,81 @@
+---
+/**
+ * About — story, approach (AI-accelerated / conversion-first / you-own-it), who we're for, promise.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FinalCta from "../components/astro/FinalCta.astro";
+
+const meta = {
+  title: "About",
+  description:
+    "VertexStudio is a new web design studio building fast, conversion-focused sites for local businesses — backed by a redesign guarantee.",
+  path: "/about",
+};
+
+const approach = [
+  {
+    title: "AI-accelerated",
+    body: "We use AI to accelerate the heavy lifting of building a website, so we ship in days, not months. That speed isn't about cutting corners — it's about getting your business online while it's still timely.",
+  },
+  {
+    title: "Conversion-first",
+    body: "A beautiful website that doesn't bring in work is just decoration. We design every page around a goal — more calls, bookings, or quotes — so your site earns its keep.",
+  },
+  {
+    title: "You own everything",
+    body: "We hand you the keys: code, content, and domain. No lock-in, no hostage files. Your website is your asset, fully under your control.",
+  },
+];
+---
+
+<BaseLayout meta={meta}>
+  <section class="relative overflow-hidden bg-[var(--color-bg)]">
+    <div class="glow pointer-events-none absolute inset-x-0 top-0 h-[420px]"></div>
+    <div class="relative mx-auto max-w-3xl px-6 pt-20 pb-12 text-center sm:pt-24">
+      <h1 class="text-4xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl">A studio built to get local businesses found.</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-[var(--color-text-muted)]">
+        VertexStudio is a web design studio for small local businesses — the restaurants, salons, contractors, clinics, and shops that are the heart of a neighborhood but too often invisible online. We exist to fix that.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-8">
+    <div class="reveal rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-text)]">Why we started</h2>
+      <p class="mt-4 leading-relaxed text-[var(--color-text-muted)]">
+        Too many great local businesses are held back by a website that doesn't match the quality of their work — or by no website at all. Meanwhile, their customers are searching online and landing on someone else. We started VertexStudio to close that gap: to give local businesses a modern, fast, hard-working website without the months of waiting and the eye-watering agency price tag. We're a new studio, and we're proud of it — building every project like it's the one that proves what we can do.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-12">
+    <h2 class="reveal text-center text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">How we work</h2>
+    <div class="reveal mt-10 grid gap-6 sm:grid-cols-3">
+      {approach.map((a) => (
+        <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+          <h3 class="text-lg font-semibold text-[var(--color-accent-text)]">{a.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">{a.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-12">
+    <div class="reveal grid gap-6 sm:grid-cols-2">
+      <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+        <h2 class="text-lg font-bold text-[var(--color-text)]">Who we build for</h2>
+        <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+          Small local businesses ready to be found — whether you've never had a website or you're stuck with one that's slow, dated, and invisible on phones. If you serve a local community and want more of them to choose you, you're exactly who we made this for.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+        <h2 class="text-lg font-bold text-[var(--color-text)]">Our promise</h2>
+        <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
+          We won't pretend to be a decade-old agency with a wall of logos. What we offer is real: careful, conversion-focused work, delivered fast, with a redesign guarantee behind it — if you don't love your new design, you don't pay for the redesign.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FinalCta headline="Let's build something that works as hard as you do." />
+</BaseLayout>

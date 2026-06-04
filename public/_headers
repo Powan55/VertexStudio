@@ -1,0 +1,7 @@
+# Cloudflare Pages security headers (applied to all routes).
+# See 07-TECH-STANDARDS.md §13. Keep simple; add CSP only if it doesn't break embeds.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  X-Frame-Options: SAMEORIGIN
