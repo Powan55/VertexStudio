@@ -4,6 +4,7 @@
  * No NAP/hours/map (we're an online studio, not a phone-first local business).
  */
 import { site } from "../../lib/site";
+import { u } from "../../lib/url";
 const year = new Date().getFullYear();
 const socials = Object.entries(site.social).filter(([, url]) => Boolean(url));
 ---
@@ -11,7 +12,7 @@ const socials = Object.entries(site.social).filter(([, url]) => Boolean(url));
 <footer class="mt-24 border-t border-[var(--color-border)] bg-[var(--color-surface)]">
   <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.5fr_1fr_1fr]">
     <div>
-      <a href="/" class="inline-flex items-center gap-2 text-[var(--color-text)]" aria-label="VertexStudio home">
+      <a href={u("/")} class="inline-flex items-center gap-2 text-[var(--color-text)]" aria-label="VertexStudio home">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M4 19 L12 5 L20 19" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
           <path d="M9 19 L12 13 L15 19" stroke="var(--color-text)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" />
@@ -38,9 +39,9 @@ const socials = Object.entries(site.social).filter(([, url]) => Boolean(url));
     <div>
       <p class="text-sm font-semibold text-[var(--color-text)]">Get started</p>
       <ul class="mt-4 space-y-2.5 text-sm">
-        <li><a href="/request" class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">Request a website</a></li>
-        <li><a href="/pricing" class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">Pricing</a></li>
-        <li><a href="/faq" class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">FAQ</a></li>
+        <li><a href={u("/request")} class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">Request a website</a></li>
+        <li><a href={u("/pricing")} class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">Pricing</a></li>
+        <li><a href={u("/faq")} class="text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]">FAQ</a></li>
       </ul>
       {socials.length > 0 && (
         <ul class="mt-5 flex gap-4 text-sm">

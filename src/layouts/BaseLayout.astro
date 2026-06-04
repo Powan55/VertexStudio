@@ -10,6 +10,7 @@ import "../styles/global.css";
 import { site } from "../lib/site";
 import { buildMeta, type PageMeta } from "../lib/seo";
 import { organizationJsonLd } from "../lib/organization";
+import { u } from "../lib/url";
 import SiteHeader from "../components/astro/SiteHeader.astro";
 import SiteFooter from "../components/astro/SiteFooter.astro";
 import AnalyticsEvents from "../components/astro/AnalyticsEvents.astro";
@@ -27,7 +28,7 @@ const jsonLd = organizationJsonLd();
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={u("/favicon.svg")} type="image/svg+xml" />
     <meta name="theme-color" content="#0A0A0B" />
 
     <title>{m.title}</title>

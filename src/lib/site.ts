@@ -6,6 +6,8 @@
  * Copy mirrors content/copy.md. Prices are PLACEHOLDERS until the operator sets them.
  */
 
+import { u } from "./url";
+
 export interface NavLink {
   label: string;
   href: string;
@@ -88,20 +90,20 @@ export const site: SiteConfig = {
   name: "VertexStudio",
   legalName: "VertexStudio",
   schemaType: "ProfessionalService",
-  url: "https://vertexstudio.pages.dev",
+  url: "https://powan55.github.io",
   description:
     "We design fast, modern, conversion-focused websites for local businesses — built in days, and you own everything. Request a website today.",
   tagline: "Websites that win local customers",
   email: "hello@vertexstudio.com", // PLACEHOLDER — operator confirms
   areaServed: "United States",
   ogImage: "/og-default.svg",
-  cta: { label: "Request a website", href: "/request", kind: "quote" },
+  cta: { label: "Request a website", href: u("/request"), kind: "quote" },
   nav: [
-    { label: "Work", href: "/work" },
-    { label: "Process", href: "/process" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "About", href: "/about" },
-    { label: "FAQ", href: "/faq" },
+    { label: "Work", href: u("/work") },
+    { label: "Process", href: u("/process") },
+    { label: "Pricing", href: u("/pricing") },
+    { label: "About", href: u("/about") },
+    { label: "FAQ", href: u("/faq") },
   ],
   social: {
     // linkedin: "https://linkedin.com/company/...",
@@ -168,7 +170,7 @@ export const site: SiteConfig = {
         "30 days of post-launch support",
       ],
       ctaLabel: "Request a website",
-      ctaHref: "/request?plan=starter",
+      ctaHref: u("/request?plan=starter"),
     },
     {
       name: "Growth",
@@ -185,7 +187,7 @@ export const site: SiteConfig = {
         "One integration (maps, reviews, scheduling)",
       ],
       ctaLabel: "Request a website",
-      ctaHref: "/request?plan=growth",
+      ctaHref: u("/request?plan=growth"),
     },
     {
       name: "Premium",
@@ -201,7 +203,7 @@ export const site: SiteConfig = {
         "Multiple integrations (payments, scheduling, email)",
       ],
       ctaLabel: "Request a website",
-      ctaHref: "/request?plan=premium",
+      ctaHref: u("/request?plan=premium"),
     },
   ],
 

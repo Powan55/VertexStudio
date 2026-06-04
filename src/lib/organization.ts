@@ -1,9 +1,10 @@
 /**
  * JSON-LD for VertexStudio — Organization / ProfessionalService.
  * Reads from site.ts so structured data always matches the visible site.
- * Validate at QA (Google Rich Results / schema.org).
+ * URLs are base-aware (work under a subpath deploy).
  */
 import { site } from "./site";
+import { u } from "./url";
 
 export function organizationJsonLd(): string {
   const schema: Record<string, unknown> = {
@@ -12,9 +13,9 @@ export function organizationJsonLd(): string {
     name: site.name,
     description: site.description,
     slogan: site.tagline,
-    url: site.url,
+    url: new URL(u("/"), site.url).toString(),
     email: site.email,
-    image: new URL(site.ogImage, site.url).toString(),
+    image: new URL(u(site.ogImage), site.url).toString(),
     serviceType: "Web design and development",
   };
 

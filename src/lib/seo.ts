@@ -1,8 +1,10 @@
 /**
  * SEO/meta helper. One source for <title>, description, canonical, Open Graph,
  * and Twitter tags. Call buildMeta() per page and spread into <BaseLayout>.
+ * Canonical/OG URLs are base-aware (work under a subpath deploy).
  */
 import { site } from "./site";
+import { u } from "./url";
 
 export interface PageMeta {
   /** Page-specific title (without the brand suffix). */
@@ -31,7 +33,7 @@ export interface ResolvedMeta {
 
 function absolute(pathOrUrl: string): string {
   if (/^https?:\/\//.test(pathOrUrl)) return pathOrUrl;
-  return new URL(pathOrUrl, site.url).toString();
+  return new URL(u(pathOrUrl), site.url).toString();
 }
 
 export function buildMeta(meta: PageMeta): ResolvedMeta {

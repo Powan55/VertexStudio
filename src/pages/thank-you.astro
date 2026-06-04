@@ -3,6 +3,7 @@
  * Thank-you — noindex confirmation after a request is submitted.
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { u } from "../lib/url";
 
 const meta = {
   title: "Thank you",
@@ -27,11 +28,11 @@ const meta = {
       </p>
 
       <div class="mt-10 grid gap-4 text-left sm:grid-cols-2">
-        <a href="/work" class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition hover:border-[var(--color-text-subtle)]">
+        <a href={u("/work")} class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition hover:border-[var(--color-text-subtle)]">
           <p class="font-semibold text-[var(--color-text)]">See how we think about design →</p>
           <p class="mt-1 text-sm text-[var(--color-text-muted)]">Browse our concept work.</p>
         </a>
-        <a href="/process" class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition hover:border-[var(--color-text-subtle)]">
+        <a href={u("/process")} class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition hover:border-[var(--color-text-subtle)]">
           <p class="font-semibold text-[var(--color-text)]">Curious how it comes together? →</p>
           <p class="mt-1 text-sm text-[var(--color-text-muted)]">Read our four-step process.</p>
         </a>

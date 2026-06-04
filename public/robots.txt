@@ -1,5 +1,4 @@
-# Update the Sitemap host to the final custom domain when live.
 User-agent: *
 Allow: /
 
-Sitemap: https://vertexstudio.pages.dev/sitemap-index.xml
+Sitemap: https://powan55.github.io/VertexStudio/sitemap-index.xml

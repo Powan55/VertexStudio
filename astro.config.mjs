@@ -6,8 +6,10 @@ import tailwindcss from "@tailwindcss/vite";
 // IMPORTANT: set `site` to the client's final domain before Ship so canonical
 // + sitemap URLs are absolute. Use the .pages.dev URL until the domain is live.
 export default defineConfig({
-  // VertexStudio — staging URL until the custom domain is live (then update + redeploy).
-  site: "https://vertexstudio.pages.dev",
+  // GitHub Pages project site → served under /VertexStudio/.
+  // (For a custom domain later: set site to the domain and remove `base`.)
+  site: "https://powan55.github.io",
+  base: "/VertexStudio",
 
   // Fully static export (default). Do NOT add an adapter unless a brief needs SSR.
   output: "static",

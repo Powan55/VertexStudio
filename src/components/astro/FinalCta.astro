@@ -2,6 +2,7 @@
 /**
  * Reusable closing call-to-action band (accent glow). Used on every page.
  */
+import { u } from "../../lib/url";
 interface Props {
   headline?: string;
   body?: string;
@@ -22,7 +23,7 @@ const {
     <h2 class="text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">{headline}</h2>
     <p class="mx-auto mt-4 max-w-xl text-lg text-[var(--color-text-muted)]">{body}</p>
     <a
-      href={href}
+      href={u(href)}
       data-analytics="request_click"
       class="mt-8 inline-flex min-h-[48px] items-center justify-center rounded-xl bg-[var(--color-accent)] px-8 py-3 text-base font-semibold text-[var(--color-accent-fg)] shadow-lg transition hover:bg-[var(--color-accent-hover)]"
     >
