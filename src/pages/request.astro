@@ -122,6 +122,7 @@ const steps = [
                 <label class={label} for="budget">Budget range</label>
                 <select class={field} id="budget" name="budget">
                   <option value="" disabled selected>Choose one…</option>
+                  <option>$250–$500</option>
                   <option>Not sure yet</option>
                   <option>$1,000–$3,000</option>
                   <option>$3,000–$6,000</option>
@@ -129,6 +130,11 @@ const steps = [
                 </select>
               </div>
             </div>
+
+            <label class="flex items-start gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-elevated)] p-4 text-sm text-[var(--color-text-muted)]">
+              <input type="checkbox" id="care_interest" name="care_interest" value="yes" class="mt-1 h-4 w-4 shrink-0 rounded border-[var(--color-border)]" />
+              <span>Add ongoing care &amp; support (<span class="font-semibold text-[var(--color-text)]">$98/mo</span>) — keep my site fast, secure, and updated after launch.</span>
+            </label>
 
             <div>
               <label class={label} for="referral">How did you hear about us? <span class="text-[var(--color-text-subtle)]">(optional)</span></label>
@@ -140,6 +146,8 @@ const steps = [
                 <option>Other</option>
               </select>
             </div>
+
+            <input type="hidden" name="plan" id="plan-field" value="" />
 
             <label class="flex items-start gap-3 text-sm text-[var(--color-text-muted)]">
               <input type="checkbox" name="consent" required class="mt-1 h-4 w-4 shrink-0 rounded border-[var(--color-border)]" />
@@ -170,6 +178,22 @@ const steps = [
     var form = document.getElementById("request-form");
     if (!form) return;
     var status = document.getElementById("form-status");
+
+    // Capture ?plan= so the lead's chosen plan posts with the form, and pre-check
+    // the care add-on when they arrived via the "Add care & support" CTA. Unknown
+    // or missing values are ignored — no crash, the form just submits without a plan.
+    try {
+      var plan = new URLSearchParams(window.location.search).get("plan");
+      if (plan) {
+        var planField = document.getElementById("plan-field");
+        if (planField) planField.value = plan;
+        if (plan === "care") {
+          var care = document.getElementById("care_interest");
+          if (care) care.checked = true;
+        }
+      }
+    } catch (_) {}
+
     function fail(msg) {
       if (status) { status.textContent = msg; status.hidden = false; }
     }

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Production-house starter for an SMB marketing site (Astro + Tailwind + React islands). Copy into C:\\skills\\<slug>\\site\\.",
+  "description": "Production-house starter for an SMB marketing site (Astro + Tailwind + React islands). Copy into C:\\Claude\\website\\<slug>\\site\\.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

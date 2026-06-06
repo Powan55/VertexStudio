@@ -3,7 +3,7 @@
  * Nav, footer, services, process, pricing tiers, FAQs, concept demos, SEO meta,
  * and JSON-LD all read from here so content never drifts.
  *
- * Copy mirrors content/copy.md. Prices are PLACEHOLDERS until the operator sets them.
+ * Copy mirrors content/copy.md. Prices are operator-confirmed market-rate floors.
  */
 
 import { u } from "./url";
@@ -28,10 +28,24 @@ export interface ProcessStep {
 export interface Tier {
   name: string;
   positioning: string;
-  /** PLACEHOLDER until operator confirms real numbers. */
+  /** Operator-confirmed "starting at" floor, e.g. "Starting at $1,500". */
   priceFrom: string;
   popular?: boolean;
   inclusions: string[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface CarePlan {
+  name: string;
+  price: string;
+  cadence: string;
+  positioning: string;
+  inclusions: string[];
+  /** Scope-limiting disclaimer: what the care plan does NOT cover. */
+  excludesNote: string;
+  /** How the plan attaches: layers on any build tier, cancel anytime. */
+  attachModel: string;
   ctaLabel: string;
   ctaHref: string;
 }
@@ -82,6 +96,7 @@ export interface SiteConfig {
   services: Service[];
   process: ProcessStep[];
   tiers: Tier[];
+  carePlan: CarePlan;
   faqs: Faq[];
   conceptDemos: ConceptDemo[];
 }
@@ -158,6 +173,21 @@ export const site: SiteConfig = {
 
   tiers: [
     {
+      name: "Single Page",
+      positioning: "One page, done beautifully — everything a customer needs to choose you, on a single fast-loading screen.",
+      priceFrom: "Starting at $250",
+      inclusions: [
+        "One focused conversion page (everything above the fold that matters)",
+        "Mobile-first, fast-loading design",
+        "Basic SEO so you're found on Google",
+        "Contact form + click-to-call button",
+        "1 round of revisions",
+        "Launch and handoff — the page is yours",
+      ],
+      ctaLabel: "Request a website",
+      ctaHref: u("/request?plan=single-page"),
+    },
+    {
       name: "Starter",
       positioning: "Get online and start taking calls — a focused site that does the essentials beautifully.",
       priceFrom: "Starting at $1,500",
@@ -207,6 +237,28 @@ export const site: SiteConfig = {
     },
   ],
 
+  carePlan: {
+    name: "Care & Support",
+    price: "$98",
+    cadence: "/month",
+    positioning: "Launch day isn't the finish line — we keep your site fast, secure, and up to date, and we're on call when you need a change.",
+    inclusions: [
+      "Managed hosting and SSL kept current",
+      "Security monitoring and software/plugin updates (tested, not blind auto-updates)",
+      "Uptime monitoring with alerts",
+      "Monthly off-site backups with restore on call",
+      "Priority tech support when something breaks",
+      "A set allotment of small content edits each month (hours, prices, photos, text swaps)",
+      "Monthly performance check (speed and Core Web Vitals)",
+    ],
+    excludesNote:
+      "Covers upkeep and small edits, not new pages, redesigns, new features, content writing, or paid plugin/domain license fees — those are quoted separately.",
+    attachModel:
+      "A post-launch monthly add-on you can layer on ANY plan — Single Page, Starter, Growth, or Premium. Cancel anytime.",
+    ctaLabel: "Add care & support",
+    ctaHref: u("/request?plan=care"),
+  },
+
   faqs: [
     {
       group: "Getting started",
@@ -241,7 +293,7 @@ export const site: SiteConfig = {
     {
       group: "Budget & revisions",
       q: "How does pricing work?",
-      a: "We offer three plans — Starter, Growth, and Premium — each with a starting range. We confirm your exact price before any work begins, so there are no surprises. We're also happy to discuss payment options.",
+      a: "We offer a range of plans — from a one-page site up to a full build — each with a starting range, plus an optional monthly care plan if you want us to keep things running after launch. We confirm your exact price before any work begins, so there are no surprises. We're also happy to discuss payment options.",
     },
     {
       group: "Budget & revisions",
